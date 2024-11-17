@@ -1,0 +1,77 @@
+section .bss
+    num1 resb 2           ; 
+    num2 resb 2           ; 
+    result resb 1         ; 
+
+section .data
+    msg1 db "Enter first number: ", 0
+    msg2 db "Enter second number: ", 0
+    msg_result db "The result is: ", 0
+    newline db 0xA        ; 
+
+section .text
+    global _start         ; 
+
+_start:
+    ; Prompt for the first number
+    mov rax, 1            ; 
+    mov rdi, 1            ; 
+    mov rsi, msg1         ; 
+    mov rdx, 19           ; 
+    syscall               ; 
+
+    ; Read the first number
+    mov rax, 0            ; 
+    mov rdi, 0            ; 
+    mov rsi, num1         ; 
+    mov rdx, 2            ; 
+    syscall               ; 
+
+    ; Prompt for the second number
+    mov rax, 1            ; 
+    mov rdi, 1            ; 
+    mov rsi, msg2         ; 
+    mov rdx, 20           ; 
+    syscall               ; 
+
+    ; Read the second number
+    mov rax, 0            ; 
+    mov rdi, 0            ; 
+    mov rsi, num2         ; 
+    mov rdx, 2            ; 
+    syscall               ; 
+
+    ; Perform addition
+    mov al, byte [num1]   ; 
+    sub al, '0'           ; 
+    mov bl, byte [num2]   ; 
+    sub bl, '0'           ; 
+    add al, bl            ; 
+    add al, '0'           ; 
+    mov [result], al      ; 
+
+    ; Display the result message
+    mov rax, 1            ; 
+    mov rdi, 1            ; 
+    mov rsi, msg_result   ; 
+    mov rdx, 16           ; 
+    syscall               ; 
+
+    ; Display the result
+    mov rax, 1            ; 
+    mov rdi, 1            ; 
+    mov rsi, result       ; 
+    mov rdx, 1            ; 
+    syscall               ; 
+
+    ; Display a newline
+    mov rax, 1            ; 
+    mov rdi, 1            ; 
+    mov rsi, newline      ; 
+    mov rdx, 1            ; 
+    syscall               ; 
+
+    ; Exit the program
+    mov rax, 60           ; 
+    xor rdi, rdi          ; 
+    syscall               ;  
