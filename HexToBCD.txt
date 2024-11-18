@@ -5,19 +5,15 @@
    mov rdx,%4
    syscall
    
- %endmacro
+%endmacro
  
  section .data
-    
        m1 db "Enter 4 digit Hex Number",10d,13d
        l1 equ $-m1
-       
        m2 db "Equivalent BCD number is",10d,13d
        l2 equ $-m2
        
-       
- section .bss
-    
+section .bss
       buff resb 6
       digitcount resb 1
       char_ans resb 4
@@ -25,23 +21,17 @@
  section .text
  global _start
  _start:
- 
      scall 1,1,m1,l1
      scall 0,0,buff,5
      call accept_proc
      mov ax,bx
      call h2proc
  
- 
-   mov rax,60
+mov rax,60
    mov rdi,0
    syscall
  
- 
- 
- 
- 
- h2proc:
+h2proc:
     mov rbx,0Ah
     
 back:
@@ -53,7 +43,6 @@ back:
     jne back
     scall 1,1,m2,l2
     
-  
 print_bcd:
     pop dx
     add dl,30h
@@ -64,13 +53,11 @@ print_bcd:
     ret
  
 accept_proc:
- 
     xor bx,bx
     mov rcx,4
     mov rsi,buff
     
  next_digit:
-       
       shl bx,04
       mov al,[rsi]
       
@@ -79,8 +66,7 @@ accept_proc:
       sub al,07h
       
 label:
-    
-    sub al,30h
+     sub al,30h
     add bx,ax
     inc rsi
     loop next_digit
