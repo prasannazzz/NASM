@@ -1,3 +1,8 @@
+section .bss
+num1 resb 20
+num2 resb 20
+res resb 64
+
 section .data
 m1 db "Enter the first number",10
 len1 equ $ -m1
@@ -8,10 +13,6 @@ len2 equ $ -m2
 m3 db "Result is :",10
 len3 equ $ -m3
 
-section .bss
-num1 resb 20
-num2 resb 20
-res resb 64
 
 %macro proc 4
 mov rax,%1
@@ -51,8 +52,4 @@ sub cl,1
 jnz _add
 add dl,'0'
 mov [res],dl
-retsection .bss
-num1 resb 20
-num2 resb 20
-res resb 64
-
+ret
